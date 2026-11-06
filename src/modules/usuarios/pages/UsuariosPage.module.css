@@ -1,0 +1,15 @@
+.page {
+  padding: clamp(1.1rem, 3vw, 2.5rem);
+  background: #f7faff;
+  min-height: 100%;
+}
+.exports {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+.notice { margin-bottom: 1rem; }
+.active, .inactive { white-space: nowrap; }
+.active { color: #16803c !important; }
+.inactive { color: #627487 !important; }
+.active:disabled, .inactive:disabled { opacity: 0.65; }

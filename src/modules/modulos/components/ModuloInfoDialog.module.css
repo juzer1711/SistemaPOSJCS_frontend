@@ -1,0 +1,20 @@
+.content {
+  min-height: 100px;
+}
+
+.details {
+  margin: 0;
+}
+
+.details dt {
+  margin-top: 1rem;
+  color: #53687b;
+  font-weight: 600;
+}
+
+.details dd {
+  margin: 0.25rem 0 0;
+  color: #102a43;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

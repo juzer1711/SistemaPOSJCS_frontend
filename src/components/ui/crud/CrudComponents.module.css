@@ -1,0 +1,138 @@
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.pageTitle {
+  margin-bottom: 0.3rem !important;
+  color: #102a43;
+  font-weight: 750 !important;
+}
+
+.pageSubtitle {
+  margin: 0 !important;
+  color: #627487;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.filterField {
+  min-width: min(230px, 100%);
+  flex: 1 1 220px;
+}
+
+.clearFilters {
+  border: 1px solid #dce6ef !important;
+  border-radius: 10px !important;
+  color: #53687b !important;
+}
+
+.clearFilters:hover:not(:disabled) {
+  border-color: #9dc4e2 !important;
+  background: #f3f8fd !important;
+}
+
+.tablePaper {
+  overflow: hidden;
+  border: 1px solid #e0e9f1;
+  border-radius: 16px !important;
+  background: #fff;
+}
+
+.tableScroller {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tableScroller table {
+  min-width: 760px;
+}
+
+.tableScroller thead th {
+  color: #344b60;
+  background: #f4f8fc;
+  font-size: 0.78rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.tableScroller tbody td {
+  color: #344b60;
+  font-size: 0.85rem;
+}
+
+.stateCell {
+  height: 150px;
+  color: #627487 !important;
+  text-align: center !important;
+}
+
+.actionsCell {
+  width: 88px;
+  white-space: nowrap;
+}
+
+.pagination {
+  border-top: 1px solid #e0e9f1;
+}
+
+.dialogTitle {
+  padding: 1.5rem 1.5rem 0.75rem !important;
+  color: #102a43;
+  font-size: 1.25rem !important;
+  font-weight: 750 !important;
+}
+
+.dialogContent {
+  display: grid;
+  gap: 0.45rem;
+  padding-top: 0.75rem !important;
+}
+
+.formField {
+  margin-top: 0.5rem !important;
+}
+
+.formAlert {
+  margin: 0.4rem 0 0.6rem;
+}
+
+.dialogActions {
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 1.4rem !important;
+}
+
+@media (max-width: 600px) {
+  .pageHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pageHeader > button {
+    width: 100%;
+  }
+
+  .filterBar {
+    align-items: stretch;
+  }
+
+  .filterField {
+    flex-basis: 100%;
+  }
+
+  .clearFilters {
+    align-self: flex-end;
+  }
+
+  .pagination {
+    overflow-x: auto;
+  }
+}
