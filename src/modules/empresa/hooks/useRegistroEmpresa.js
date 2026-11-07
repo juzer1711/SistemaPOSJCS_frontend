@@ -2,19 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEmpresa } from "../../../context/EmpresaContext";
 import { createEmpresa } from "../services/empresaApi.js";
-import { empresaSchema } from "../../../validation/validationSchema";
+import { empresaSchema } from "../validation/empresaSchema.js";
+import { empresaFieldErrors, empresaValues } from "../validation/empresaFields.js";
 
-const initialEmpresa = {
-  nombreComercial: "",
-  razonSocial: "",
-  nit: "",
-  digitoVerificacion: "",
-  direccion: "",
-  municipio: "",
-  departamento: "",
-  telefono: "",
-  correo: "",
-};
+const initialEmpresa = empresaValues(null);
 
 export const useRegistroEmpresa = () => {
   const navigate = useNavigate();
@@ -60,13 +51,8 @@ export const useRegistroEmpresa = () => {
       setSetupToken("");
       navigate("/login", { replace: true });
     } catch (error) {
-      if (error.name === "ValidationError") {
-        const errors = error.inner.reduce((current, validationError) => {
-          if (validationError.path && !current[validationError.path]) {
-            current[validationError.path] = validationError.message;
-          }
-          return current;
-        }, {});
+      const errors = empresaFieldErrors(error);
+      if (Object.keys(errors).length) {
         setFieldErrors(errors);
       } else {
         setMensaje(error.message || "No fue posible registrar la empresa.");

@@ -41,6 +41,8 @@ useCrudQuery comparte debounce, filtros, orden, paginación, cancelación y reca
 
 El formulario común soporta texto, selectores, contraseña, validación y campos opcionales al editar. CSS Modules es el patrón de estilos nuevos. No duplicar componentes globales ni abstraer reglas específicas del dominio.
 
+CrudPageHeader admite `actions` como contenido React opcional para acciones de página (por ejemplo, exportaciones), junto al botón principal configurado con `actionLabel`, `onAction` y `actionDisabled`. El dominio define los botones, permisos y estados de carga; el encabezado solo organiza su presentación y adapta el grupo a pantallas pequeñas. Mantener filtros en una fila independiente debajo. Usuarios implementa esta referencia con Excel, CSV y Nuevo usuario; reutilizarla al adaptar otros CRUD que necesiten acciones, sin añadir exportaciones a dominios que no las tengan.
+
 ## Sesión y autorización
 
 AuthContext mantiene la identidad; sessionStorage guarda pos_access_token. apiClient envía Authorization: Bearer. No se usan roles como modelo de autorización ni cookies para transportar el JWT.
@@ -60,14 +62,20 @@ Un error al cargar permisos no concede acceso. La autorización definitiva se co
 ## Estado funcional
 
 - Landing, registro inicial de empresa, autenticación, layout y dashboard administrador modularizados.
+- EMPRESA: perfil único dentro del dominio, sin tabla ni paginación. Formulario con nueve campos generales y selección de responsabilidad de IVA; validación general compartida con el registro inicial y validación tributaria específica del perfil. Acceso bajo CONSULTA y cambios de datos/logo bajo ACTUALIZACION. GET /api/empresa y EmpresaContext siguen disponibles para personalización pública.
+- El contrato del perfil incluye `responsableIva`: true/false se conservan como booleanos en el payload y contexto; null o ausencia se muestran como "Pendiente de configurar", sin asumir false. Para guardar el perfil se exige seleccionar Responsable o No responsable según el RUT. El selector está deshabilitado sin ACTUALIZACION o mientras hay una escritura en curso; participa en cambios pendientes, descarte y errores por campo. El registro inicial conserva sus campos actuales y puede dejar esta condición pendiente para configurarla en el perfil. Este cambio no modifica el cálculo de ventas ni los tiquetes.
+- Empresa conserva un borrador separado del contexto. El logo se guarda inmediatamente y no reemplaza campos sin guardar; ambas escrituras se excluyen entre sí en la pantalla. Las respuestas confirmadas actualizan el contexto sin otra consulta, y las lecturas obsoletas se cancelan. Ante error transitorio de consulta se conserva la personalización ya confirmada.
+- Navbar y landing mantienen su presentación actual: navbar usa la marca estática POS JCS y nombre comercial; landing usa existencia/nombre, y los tiquetes conservan sus campos actuales. No se añadió logo empresarial a esos consumidores.
 - MODULOS: alta/edición sin eliminar; código textual con ejemplo, inmutable al editar, validación de disponibilidad, orden/filtros/paginación del servidor e información de descripción en modal bajo CONSULTA.
 - REGLAS: filas por módulo, columnas por permiso; usuario inicial autenticado reemplazable por autocomplete, filtro por módulo y guardado inmediato de cada casilla. Mantiene al usuario seleccionado; permite autorrevocación.
 - USUARIOS: misma base CRUD que módulos. Búsqueda parcial por nombre completo, username, documento y correo; filtros por estado/tipo de documento; orden y paginación del servidor.
 - Usuarios conserva activos/inactivos, confirmación y reintento de estado, CSV/Excel, catálogo backend de documentos, documento bloqueado y cambio de contraseña opcional al editar. Cambiar username propio o desactivarse cierra sesión.
 - La consulta de usuarios de cajas mantiene el adaptador buscarUsuariosRespuesta con respuesta Axios.
-- Pendientes de refactor frontend: clientes, productos, ventas/POS, cajas, inventario, reportes, auditoría, perfil de empresa y dashboard cajero. No asumir permisos finos aplicados a estos flujos.
+- Pendientes de refactor frontend: clientes, productos, ventas/POS, cajas, inventario, reportes, auditoría y dashboard cajero. No asumir permisos finos aplicados a estos flujos.
 
 ## Comprobaciones y límites
+
+Empresa: `node --test tests/empresa.test.js` ejecuta ocho pruebas de payload, validación, errores y borrador, incluyendo responsabilidad de IVA, false explícito y selección pendiente; `npm.cmd run build` comprueba compilación. Las comprobaciones históricas de navegador con API simulada cubrieron guardado, logo sin perder borrador, errores por campo, permisos y revocación, sesión ausente, registro inicial, reintento y viewport móvil de 390 px. No equivalen a persistencia real, JWT válido ni Cloudinary real, ni validan por sí solas el nuevo selector tributario.
 
 La fase de usuarios registró build correcto y pruebas de navegador con API simulada (formularios, filtros, orden, paginación, permisos, estado, exportación y responsive). No sustituyen una prueba integral con JWT y backend reales. El build emite una advertencia de tamaño de bundle; compilar no acredita rendimiento ni comportamiento funcional.
 

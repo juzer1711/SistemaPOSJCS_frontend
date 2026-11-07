@@ -3,18 +3,9 @@ import { Link } from "react-router-dom";
 import { useEmpresa } from "../../../context/EmpresaContext";
 import { useRegistroEmpresa } from "../hooks/useRegistroEmpresa.js";
 import styles from "./RegistroEmpresaPage.module.css";
+import { empresaFields } from "../validation/empresaFields.js";
 
-const fields = [
-  { name: "nombreComercial", label: "Nombre comercial", autoComplete: "organization" },
-  { name: "razonSocial", label: "Razón social", autoComplete: "organization" },
-  { name: "nit", label: "NIT (sin dígito de verificación)", inputMode: "numeric" },
-  { name: "digitoVerificacion", label: "Dígito de verificación", inputMode: "numeric" },
-  { name: "direccion", label: "Dirección", autoComplete: "street-address" },
-  { name: "municipio", label: "Municipio", autoComplete: "address-level2" },
-  { name: "departamento", label: "Departamento", autoComplete: "address-level1" },
-  { name: "telefono", label: "Teléfono", autoComplete: "tel", inputMode: "tel" },
-  { name: "correo", label: "Correo (opcional)", autoComplete: "email", type: "email" },
-];
+const fields = empresaFields.map(({ fullWidth, optional, ...field }) => field);
 
 function RegistrationStatus({ message, onRetry, actionHref, actionLabel }) {
   return (

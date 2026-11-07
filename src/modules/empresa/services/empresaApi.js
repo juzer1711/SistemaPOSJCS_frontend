@@ -2,9 +2,9 @@ import { apiClient } from "../../../api/apiClient.js";
 
 const EMPRESA_URL = "/empresa";
 
-export const getEmpresa = async () => {
+export const getEmpresa = async ({ signal } = {}) => {
   try {
-    const response = await apiClient.get(EMPRESA_URL);
+    const response = await apiClient.get(EMPRESA_URL, { signal });
     return response.data;
   } catch (error) {
     throw formatApiError(error);
@@ -24,6 +24,7 @@ export const createEmpresa = async (empresaData, setupToken) => {
   }
 };
 
+/** Actualiza el perfil completo; responsableIva se envia como booleano JSON. */
 export const updateEmpresa = async (id, empresaData) => {
   try {
     const response = await apiClient.put(`${EMPRESA_URL}/${id}`, empresaData);

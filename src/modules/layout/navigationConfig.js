@@ -59,14 +59,6 @@ export const NAV_SECTIONS = [
         tone: "blue",
       },
       {
-        label: "Módulos",
-        description: "Administra las áreas funcionales y sus datos base.",
-        path: "/gestion-modulos",
-        modulo: "MODULOS",
-        icon: ViewModuleOutlined,
-        tone: "teal",
-      },
-      {
         label: "Clientes",
         description: "Mantén al día la información de tus clientes.",
         path: "/gestion-clientes",
@@ -91,6 +83,7 @@ export const NAV_SECTIONS = [
         label: "Empresa",
         description: "Actualiza la información general del negocio.",
         path: "/empresa",
+        modulo: "EMPRESA",
         icon: BusinessOutlined,
         tone: "blue",
       },
@@ -99,14 +92,24 @@ export const NAV_SECTIONS = [
   {
     label: "Seguridad",
     icon: SecurityOutlined,
-    items: [{
-      label: "Reglas y permisos",
-      description: "Administra los permisos de cada usuario por módulo.",
-      path: "/gestion-reglas",
-      modulo: "REGLAS",
-      icon: SecurityOutlined,
-      tone: "violet",
-    }],
+    items: [
+      {
+        label: "Módulos",
+        description: "Administra las áreas funcionales y sus datos base.",
+        path: "/gestion-modulos",
+        modulo: "MODULOS",
+        icon: ViewModuleOutlined,
+        tone: "teal",
+      },
+      {
+        label: "Reglas y permisos",
+        description: "Administra los permisos de cada usuario por módulo.",
+        path: "/gestion-reglas",
+        modulo: "REGLAS",
+        icon: SecurityOutlined,
+        tone: "violet",
+      },
+    ],
   },
   {
     label: "Cajas",

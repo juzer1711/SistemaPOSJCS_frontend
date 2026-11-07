@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Pages
 import LandingPage from "../modules/landing/pages/LandingPage.jsx";
 import RegistroEmpresaPage from "../modules/empresa/pages/RegistroEmpresaPage.jsx";
-import EmpresaProfile from "../pages/EmpresaProfile";
+import EmpresaProfilePage from "../modules/empresa/pages/EmpresaProfilePage.jsx";
 import Login from "../modules/auth/pages/LoginPage.jsx";
 import AdminDashboard from "../modules/dashboard/pages/AdminDashboardPage.jsx";
 import ReglasPage from "../modules/reglas/pages/ReglasPage.jsx";
@@ -54,7 +54,7 @@ function AppRoutes() {
 
         <Route path="/auditoria" element={<PrivateRoute><AuditoriaManagement /></PrivateRoute>} />
 
-        <Route path="/empresa" element={<PrivateRoute><EmpresaProfile /></PrivateRoute>} />
+        <Route path="/empresa" element={<PrivateRoute modulo="EMPRESA"><EmpresaProfilePage /></PrivateRoute>} />
 
       </Routes>
     </Router>

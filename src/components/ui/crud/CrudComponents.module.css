@@ -2,8 +2,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1.4rem;
+}
+
+.pageHeading {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  max-width: 100%;
+}
+
+.headerActions > button {
+  white-space: nowrap;
 }
 
 .pageTitle {
@@ -116,8 +135,17 @@
     flex-direction: column;
   }
 
-  .pageHeader > button {
+  .pageHeading {
+    flex-basis: auto;
+  }
+
+  .headerActions {
     width: 100%;
+    justify-content: flex-start;
+  }
+
+  .headerActions > button {
+    flex: 1 1 auto;
   }
 
   .filterBar {

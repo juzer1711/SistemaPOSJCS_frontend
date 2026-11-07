@@ -50,17 +50,17 @@ export default function UsuariosPage() {
     <div className={styles.page}>
       <CrudPageHeader title="Gestión de usuarios" subtitle="Administra las cuentas de acceso y su estado."
         actionLabel={canCreate ? "Nuevo usuario" : undefined} onAction={usuarios.openCreate}
-        actionDisabled={usuarios.typesLoading || Boolean(usuarios.typesError)} />
-      {usuarios.typesError && <Alert severity="error" className={styles.notice}
-        action={<Button onClick={usuarios.retryTypes}>Reintentar</Button>}>{usuarios.typesError}</Alert>}
-      <ManagementToolbar>
-        <CrudFilterBar fields={filters} values={usuarios.filters} onChange={usuarios.handleFilterChange} onClear={usuarios.clearFilters} />
-        {canExport && <div className={styles.exports}>
+        actionDisabled={usuarios.typesLoading || Boolean(usuarios.typesError)}
+        actions={canExport && <>
           <Button variant="outlined" disabled={usuarios.loadingExcel} onClick={usuarios.exportExcel}
             startIcon={usuarios.loadingExcel ? <CircularProgress size={16} /> : <FileDownloadOutlined />}>Excel</Button>
           <Button variant="outlined" disabled={usuarios.loadingCSV} onClick={usuarios.exportCSV}
             startIcon={usuarios.loadingCSV ? <CircularProgress size={16} /> : <FileDownloadOutlined />}>CSV</Button>
-        </div>}
+        </>} />
+      {usuarios.typesError && <Alert severity="error" className={styles.notice}
+        action={<Button onClick={usuarios.retryTypes}>Reintentar</Button>}>{usuarios.typesError}</Alert>}
+      <ManagementToolbar>
+        <CrudFilterBar fields={filters} values={usuarios.filters} onChange={usuarios.handleFilterChange} onClear={usuarios.clearFilters} />
       </ManagementToolbar>
       <CrudDataTable columns={columns} rows={usuarios.rows} rowKey="idUsuario" sort={usuarios.sort} onSortChange={usuarios.handleSortChange}
         page={usuarios.page} rowsPerPage={usuarios.pageSize} totalRows={usuarios.totalRows}
